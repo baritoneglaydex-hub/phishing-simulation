@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DALUMAT | PHISHLENS — Group 2 • STEM</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,Segoe UI,Arial,sans-serif;background:#0b0c0e;color:#e7e9ec}
+body{background-image:linear-gradient(rgba(11,12,14,.975),rgba(11,12,14,.99)),linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:auto,34px 34px,34px 34px;background-attachment:fixed}
+button,input{font:inherit}.hidden{display:none!important}
+button:focus-visible,input:focus-visible,.mail-row:focus-visible{outline:1px solid #6d899e;outline-offset:2px}
+.topbar{height:64px;border-bottom:1px solid #24272c;background:rgba(13,15,17,.96);display:flex;align-items:center;position:sticky;top:0;z-index:20}
+.topbar-inner{width:min(1080px,92%);margin:auto;display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;gap:10px;align-items:center;font-size:14px;font-weight:700;letter-spacing:.7px;background:none;border:0;color:#e7e9ec;padding:0;cursor:pointer}
+.brand i{font-size:15px;color:#b9c0c8}.brand:hover{color:#fff}.top-status{font-size:11px;color:#777d86;display:flex;gap:7px;align-items:center}.dot{width:6px;height:6px;border-radius:50%;background:#7cc69b}
+main{width:min(1080px,92%);margin:auto}.home{min-height:calc(100vh - 64px);display:flex;align-items:center;padding:55px 0}.hero{max-width:760px}.kicker{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#7f858e;margin-bottom:18px}.hero h1{font-size:clamp(42px,7vw,70px);line-height:1.02;letter-spacing:-3px;margin:0 0 20px;font-weight:700}.hero p{max-width:650px;color:#90969f;font-size:15px;line-height:1.7;margin:0 0 28px}
+.btn{border:1px solid #30343a;background:#15181b;color:#e9ebee;border-radius:6px;padding:11px 16px;cursor:pointer;display:inline-flex;gap:9px;align-items:center;justify-content:center;font-size:13px;transition:background .18s,border-color .18s,transform .18s,opacity .18s}.btn:hover{border-color:#555b63;background:#1b1e22}.btn:active{transform:translateY(1px)}.btn.primary{background:#e7e9ec;color:#0b0c0e;border-color:#e7e9ec}.btn.primary:hover{background:#fff}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}.intro-line{display:flex;gap:24px;margin-top:48px;color:#727882;font-size:11px}.intro-line span{display:flex;gap:7px;align-items:center}.intro-line i{font-size:10px}
+.setup{margin-top:28px;padding:17px 18px;border:1px solid #272a2f;background:rgba(16,18,21,.8);max-width:720px}.setup-label{display:block;font-size:11px;color:#8a919a;margin-bottom:10px}
+.sim{padding:34px 0 60px}.sim-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:16px;gap:20px}.sim-head h2{font-size:19px;margin:0 0 5px}.sim-head p{font-size:12px;color:#777d86;margin:0}.counter{font-size:11px;color:#7e848d;white-space:nowrap}.counter strong{color:#c8cdd3}.toolbar{display:flex;gap:9px;align-items:center;margin-bottom:12px;flex-wrap:wrap}.search-wrap{position:relative;flex:1;min-width:190px}.search-wrap i{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:11px;color:#666d76}.search{width:100%;border:1px solid #2a2e33;background:#101215;color:#e2e5e9;border-radius:6px;padding:10px 12px 10px 32px;font-size:12px}.search::placeholder{color:#666d76}.filters{display:flex;gap:5px}.filter-btn{border:1px solid #2c3035;background:#111316;color:#858c95;border-radius:5px;padding:9px 11px;font-size:11px;cursor:pointer}.filter-btn:hover{border-color:#4b5159;color:#cbd0d6}.filter-btn.active{border-color:#667b8b;background:#181d21;color:#e4e8eb}.panel{background:#101215;border:1px solid #272a2f}.inbox-meta{display:flex;justify-content:space-between;padding:10px 15px;border-bottom:1px solid #202328;color:#666d76;font-size:10px}.mail-row{display:grid;grid-template-columns:34px 1fr auto;gap:13px;padding:17px 18px;border-bottom:1px solid #202328;cursor:pointer;transition:background .15s}.mail-row:last-child{border-bottom:0}.mail-row:hover{background:#15171a}.mail-row.reviewed{background:#111316}.mail-row.reviewed:hover{background:#16181b}.mail-icon{width:34px;height:34px;border:1px solid #2a2e33;background:#17191c;display:grid;place-items:center;color:#8e959e;border-radius:5px}.sender-line{display:flex;align-items:center;gap:8px;min-width:0}.sender{font-size:12px;font-weight:600;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.subject{font-size:12px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.preview{font-size:11px;color:#777d86;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.time{font-size:10px;color:#626871;white-space:nowrap}.reviewed-badge{font-size:9px;color:#8c959e;border:1px solid #30353b;border-radius:10px;padding:2px 6px;white-space:nowrap}.empty{padding:35px 20px;text-align:center;color:#707781;font-size:12px}
+.reader{border:1px solid #272a2f;background:#101215}.reader-head{padding:22px;border-bottom:1px solid #24272c}.back{background:none;border:0;color:#777d86;font-size:11px;padding:0;cursor:pointer;margin-bottom:21px}.back:hover{color:#d7dbe0}.reader h2{font-size:19px;margin:0 0 16px;line-height:1.35}.sender-info{display:flex;gap:10px;align-items:center;font-size:11px}.avatar{width:34px;height:34px;border:1px solid #2c3036;background:#181b1f;display:grid;place-items:center;border-radius:50%;color:#90969f}.sender-info span{display:block;color:#777d86;margin-top:3px;word-break:break-all}.body{padding:25px;min-height:220px;color:#c4c8ce;font-size:13px;line-height:1.75}.body p{margin:0 0 14px}.sim-link{display:inline-flex;align-items:center;gap:7px;color:#b8c0c9;text-decoration:underline;text-underline-offset:3px;cursor:pointer;margin:4px 0 14px;background:none;border:0;padding:0;font-size:13px}.sim-link:hover{color:#fff}.reader-note{font-size:10px;color:#666d76;margin-top:3px}.reader-reviewed{margin-left:auto;display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border:1px solid #3b4b55;background:#141b20;color:#aebfc9;border-radius:999px;font-size:9px;font-weight:700;letter-spacing:.8px;white-space:nowrap}.reader-reviewed i{font-size:9px;color:#8fb6a2}.reader-reviewed.hidden{display:none!important}.actions{padding:16px 20px;border-top:1px solid #24272c;display:flex;gap:9px;flex-wrap:wrap}.decision-btn{min-width:145px}.danger{border-color:#3a3434;color:#d2b1b1;background:#151415}.safe{border-color:#304638;color:#a9c2b0;background:#111613}.feedback{padding:17px 20px;border-top:1px solid #24272c}.feedback strong{font-size:12px}.feedback p{font-size:11px;color:#828892;line-height:1.6;margin:6px 0 12px}.correct{border-top-color:#304438}.correct strong{color:#8fc6a0}.wrong{border-top-color:#493333}.wrong strong{color:#d5a0a0}.review-state{font-size:10px;color:#777f88;margin-left:8px}
+.results{min-height:calc(100vh - 64px);display:grid;place-items:center;padding:40px 0}.result{width:min(560px,100%);text-align:center;border:1px solid #272a2f;background:#101215;padding:42px 28px}.result i{font-size:24px;color:#aeb5be;margin-bottom:18px}.result h2{font-size:24px;margin:0 0 10px}.result p{color:#818790;font-size:12px;line-height:1.6}.score{font-size:54px;font-weight:700;letter-spacing:-2px;margin:22px 0}.score small{font-size:16px;color:#777d86;letter-spacing:0}.result-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #282c31;margin:25px 0;text-align:left}.result-stat{padding:15px;border-right:1px solid #282c31}.result-stat:last-child{border-right:0}.result-stat strong{display:block;font-size:18px;margin-bottom:4px}.result-stat span{font-size:10px;color:#707781}.result-actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.7);display:grid;place-items:center;padding:18px;z-index:100;opacity:1;transition:opacity .18s ease}.modal-backdrop.hidden{display:none}.modal{width:min(540px,100%);max-height:min(88vh,720px);overflow:auto;background:#111316;border:1px solid #30343a;border-radius:8px;box-shadow:0 18px 60px rgba(0,0,0,.45);transform:scale(1);animation:modalIn .18s ease}.modal.small{width:min(430px,100%)}@keyframes modalIn{from{opacity:0;transform:scale(.975) translateY(4px)}to{opacity:1;transform:scale(1) translateY(0)}}.modal-head{padding:19px 20px 14px;border-bottom:1px solid #272a2f}.modal-head h3{margin:0 0 5px;font-size:15px}.modal-head p{margin:0;color:#777f88;font-size:11px;line-height:1.55}.modal-body{padding:18px 20px}.modal-foot{padding:13px 20px;border-top:1px solid #272a2f;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}.modal-close{float:right;border:0;background:none;color:#737a83;cursor:pointer;font-size:13px}.modal-close:hover{color:#e3e6e9}.destination{border:1px solid #2c3036;background:#0c0e10;padding:13px;border-radius:5px;font:11px Consolas,Monaco,monospace;color:#b8c0c8;word-break:break-all;margin-bottom:12px}.modal-hint{font-size:11px;color:#858c95;line-height:1.65}.reason-list{display:grid;gap:8px}.reason-option{display:flex;gap:9px;align-items:flex-start;border:1px solid #292d33;background:#0f1114;border-radius:5px;padding:10px;cursor:pointer}.reason-option:hover{border-color:#41474f;background:#13161a}.reason-option input{margin-top:2px;accent-color:#8ca1b1}.reason-option span{font-size:11px;color:#b9bec5;line-height:1.4}.error-text{color:#c79898;font-size:10px;margin-top:9px;min-height:14px}.handle-choice{display:grid;grid-template-columns:1fr 1fr;gap:9px}.choice{width:100%}.confirmation-copy{font-size:12px;color:#9299a2;line-height:1.65}.feedback-line{border-left:2px solid #58636d;padding-left:10px;color:#aeb4bb;font-size:11px;line-height:1.6;margin-top:12px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#15181b;border:1px solid #30343a;color:#c8cdd3;padding:9px 13px;border-radius:5px;font-size:10px;z-index:150;opacity:0;pointer-events:none;transition:opacity .2s}.toast.show{opacity:1}
+@media(max-width:700px){.top-status{display:none}.hero h1{letter-spacing:-2px}.intro-line{gap:13px;flex-wrap:wrap}.sim-head{align-items:start;gap:10px;flex-direction:column}.toolbar{align-items:stretch}.search-wrap{min-width:100%}.filters{width:100%}.filter-btn{flex:1}.mail-row{grid-template-columns:34px 1fr}.time{display:none}.sender-line{max-width:100%}.actions{flex-direction:column}.decision-btn{width:100%}.body{padding:20px;font-size:12px}.result-grid{grid-template-columns:1fr}.result-stat{border-right:0;border-bottom:1px solid #282c31}.result-stat:last-child{border-bottom:0}.handle-choice{grid-template-columns:1fr}.modal{max-height:92vh}.modal-head,.modal-body,.modal-foot{padding-left:16px;padding-right:16px}}
+@media(max-width:430px){.home{padding:40px 0}.setup{padding:15px}.mail-row{padding:14px 13px;gap:10px}.mail-icon{width:32px;height:32px}.reader-head{padding:18px}.actions{padding:13px}.feedback{padding:14px}.intro-line{font-size:10px}.hero p{font-size:14px}}
+
+/* DALUMAT | PHISHLENS visual refinement */
+:root{--bg:#090a0c;--panel:#0f1114;--line:#252a30;--text:#eef1f4;--muted:#818994;--accent:#aebdca}
+html{scroll-behavior:smooth}
+body{background-color:var(--bg);background-image:radial-gradient(circle at 50% -15%,rgba(133,156,173,.08),transparent 34%),linear-gradient(rgba(9,10,12,.975),rgba(9,10,12,.99)),linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:auto,auto,34px 34px,34px 34px;position:relative;isolation:isolate}body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.18;background-image:linear-gradient(90deg,transparent 0 8%,rgba(116,139,154,.12) 8% 8.08%,transparent 8.08% 23%,rgba(116,139,154,.09) 23% 23.07%,transparent 23.07% 39%,rgba(116,139,154,.1) 39% 39.07%,transparent 39.07% 64%,rgba(116,139,154,.08) 64% 64.07%,transparent 64.07% 82%,rgba(116,139,154,.1) 82% 82.07%,transparent 82%),linear-gradient(0deg,transparent 0 18%,rgba(116,139,154,.1) 18% 18.08%,transparent 18.08% 43%,rgba(116,139,154,.08) 43% 43.07%,transparent 43.07% 71%,rgba(116,139,154,.1) 71% 71.07%,transparent 71%),radial-gradient(circle at 8% 18%,rgba(160,185,201,.28) 0 2px,transparent 3px),radial-gradient(circle at 23% 43%,rgba(160,185,201,.22) 0 2px,transparent 3px),radial-gradient(circle at 39% 71%,rgba(160,185,201,.2) 0 2px,transparent 3px),radial-gradient(circle at 64% 18%,rgba(160,185,201,.18) 0 2px,transparent 3px),radial-gradient(circle at 82% 71%,rgba(160,185,201,.2) 0 2px,transparent 3px);background-size:100% 100%;}body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.11;background-image:radial-gradient(circle at 12% 76%,transparent 0 28px,rgba(130,153,168,.25) 29px,transparent 30px),radial-gradient(circle at 88% 24%,transparent 0 34px,rgba(130,153,168,.2) 35px,transparent 36px),linear-gradient(135deg,transparent 49.8%,rgba(130,153,168,.16) 50%,transparent 50.2%);background-size:100% 100%;}
+.topbar{height:68px;background:rgba(9,10,12,.88);backdrop-filter:blur(16px);box-shadow:0 1px 0 rgba(255,255,255,.015),0 12px 30px rgba(0,0,0,.16)}
+.topbar-inner,main{width:min(1120px,92%)}
+.brand{gap:8px;font-size:13px;letter-spacing:1.15px}.brand i{width:27px;height:27px;display:grid;place-items:center;border:1px solid #30363d;border-radius:7px;color:#c6d0d8;background:#121519}.brand-divider{color:#4e565f}.brand small{margin-left:5px;color:#707983;font-size:8px;letter-spacing:1.3px}.status-divider{color:#3e464e}.dot{box-shadow:0 0 10px rgba(124,198,155,.4)}
+.home{min-height:calc(100vh - 68px);padding:64px 0}.hero{max-width:820px}.kicker{display:flex;align-items:center;gap:8px;color:#7f8993;letter-spacing:1.3px}.kicker span{color:#c0cad2}.kicker b{font-size:9px;color:#4d555e}.kicker i{width:1px;height:11px;background:#363c43;margin:0 3px}.hero h1{font-size:clamp(46px,7.2vw,78px);letter-spacing:-4px;text-wrap:balance;text-shadow:0 10px 40px rgba(0,0,0,.25)}.hero h1 span{color:#aeb8c1}
+.research-strip{position:relative;overflow:hidden;display:flex;gap:16px;align-items:center;flex-wrap:wrap;width:max-content;max-width:100%;margin:25px 0 0;padding:7px 10px;border:1px solid #242930;background:rgba(14,16,19,.72);color:#68717b;font-size:8px;letter-spacing:1.2px}.research-strip::after{content:"";position:absolute;right:-28px;top:50%;width:90px;height:1px;background:#71808d;opacity:.12;box-shadow:-35px -8px 0 rgba(113,128,141,.7),-58px 8px 0 rgba(113,128,141,.55);pointer-events:none}.research-strip span{display:flex;gap:6px;align-items:center}.research-strip span:first-child{color:#9ca8b2}.research-strip i{font-size:8px;color:#71808d}
+.setup{margin-top:18px;padding:18px;border-color:#292f36;background:linear-gradient(135deg,rgba(19,22,26,.9),rgba(12,14,17,.86));box-shadow:0 16px 45px rgba(0,0,0,.12)}.setup-label{text-transform:uppercase;letter-spacing:1px}
+.btn{border-radius:7px;box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}.btn.primary{box-shadow:0 8px 24px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.45)}.intro-line{margin-top:38px}
+.sim{padding:40px 0 70px}.sim-head{padding-bottom:18px;border-bottom:1px solid #20252a;margin-bottom:17px}.sim-head h2{font-size:20px;letter-spacing:-.3px}.sim-progress-wrap{min-width:220px}.progress-track{height:3px;margin-top:8px;background:#1d2227;border-radius:999px;overflow:hidden}.progress-track span{display:block;height:100%;width:0;background:linear-gradient(90deg,#687d8d,#c0cbd3);border-radius:999px;transition:width .25s ease}
+.panel,.reader,.result{border-color:#292e34;box-shadow:0 18px 50px rgba(0,0,0,.11)}.inbox-meta{background:#0d0f12}.inbox-meta i{margin-right:5px;color:#707984}.mail-row{position:relative}.mail-row:hover{box-shadow:inset 2px 0 0 #536876}.mail-row.reviewed{opacity:.78}.reader-head{background:linear-gradient(180deg,#111418,#101215)}.actions{background:#0d0f12}.decision-btn{min-height:42px}.feedback{background:#0e1113}
+.results{min-height:calc(100vh - 68px)}.result{background:linear-gradient(145deg,#111418,#0e1013);padding:44px 30px}.result-brand{color:#68717b;font-size:9px;letter-spacing:1.5px;margin-bottom:16px}.result-brand span{color:#414850}.result-brand small{margin-left:7px;color:#525b64;font-size:7px}.score{text-shadow:0 8px 30px rgba(0,0,0,.3)}
+.modal{background:rgba(15,17,20,.98);border-color:#343a41}.modal-backdrop{backdrop-filter:blur(5px)}.toast{box-shadow:0 12px 35px rgba(0,0,0,.35)}
+@media(max-width:700px){.brand small{display:none}.brand{font-size:11px;letter-spacing:.9px}.sim-progress-wrap{width:100%}.research-strip{width:100%;gap:10px}.hero h1{letter-spacing:-2.7px}}
+@media(max-width:430px){.brand i{width:25px;height:25px}.kicker{flex-wrap:wrap;line-height:1.7}.result{padding:36px 18px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <button id="brandBtn" class="brand" type="button" aria-label="Return to Dalumat PhishLens home"><i class="fa-solid fa-crosshairs"></i> DALUMAT <span class="brand-divider">|</span> PHISHLENS <small>GROUP 2 • STEM</small></button>
+    <div class="top-status"><span class="dot"></span> Research simulation <span class="status-divider">•</span> Group 2 — STEM</div>
+  </div>
+</header>
+
+<section id="home">
+  <main class="home">
+    <div class="hero">
+      <div class="kicker"><span>DALUMAT</span> <b>•</b> Group 2 — STEM <i></i> PhishLens research simulation</div>
+      <h1>Could you spot<br><span>the fake?</span></h1>
+      <p>Review realistic messages and identify which ones may be phishing. Look closely at the sender, wording, and destination before making your choice.</p>
+      <div style="display:grid;gap:10px;max-width:520px;margin:18px auto 0;text-align:left">
+        <label for="participantName" style="font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase">Name</label>
+        <input id="participantName" type="text" autocomplete="name" maxlength="100" placeholder="Enter your name" style="width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:rgba(0,0,0,.18);color:inherit;font:inherit;outline:none">
+        <label for="participantDate" style="font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-top:2px">Date</label>
+        <input id="participantDate" type="date" style="width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:rgba(0,0,0,.18);color:inherit;font:inherit;outline:none">
+      </div>
+      <div class="research-strip"><span><i class="fa-solid fa-flask"></i> DALUMAT RESEARCH</span><span>PHISHLENS</span><span>GROUP 2 • STEM</span></div>
+      <button id="startBtn" class="btn primary" type="button" style="margin-top:18px">▶ START SIMULATION</button>
+      <div class="intro-line"><span><i class="fa-solid fa-envelope"></i> Simulated inbox</span><span><i class="fa-solid fa-magnifying-glass"></i> Inspect links</span><span><i class="fa-solid fa-chart-simple"></i> Accuracy score</span></div>
+    </div>
+  </main>
+</section>
+
+<section id="simulation" class="hidden">
+  <main class="sim">
+    <div class="sim-head">
+      <div><h2>Inbox</h2><p>Open a message, inspect the details, then make your decision.</p></div>
+      <div class="sim-progress-wrap"><div class="counter">Inbox: <strong id="inboxCount">0</strong> &nbsp;·&nbsp; Reviewed: <strong id="reviewedCount">0</strong> &nbsp;·&nbsp; Accuracy: <strong id="accuracyCount">0%</strong></div><div class="progress-track" aria-label="Simulation progress"><span id="progressFill"></span></div></div>
+    </div>
+    <div class="toolbar">
+      <div class="search-wrap"><i class="fa-solid fa-magnifying-glass"></i><input id="searchInput" class="search" type="search" placeholder="Search sender or subject" autocomplete="off"></div>
+      <div class="filters" role="group" aria-label="Inbox filter">
+        <button id="filterAll" class="filter-btn active" type="button">All</button>
+        <button id="filterReviewed" class="filter-btn" type="button">Reviewed</button>
+      </div>
+    </div>
+    <div id="inbox" class="panel"></div>
+    <div id="reader" class="reader hidden">
+      <div class="reader-head">
+        <button id="backBtn" class="back" type="button"><i class="fa-solid fa-arrow-left"></i> Back to inbox</button>
+        <h2 id="subject"></h2>
+        <div class="sender-info"><div class="avatar"><i class="fa-solid fa-user"></i></div><div><strong id="sender"></strong><span id="address"></span></div><span id="readerReviewed" class="reader-reviewed hidden"><i class="fa-solid fa-circle-check"></i> REVIEWED</span></div>
+      </div>
+      <div id="body" class="body"></div>
+      <div class="actions">
+        <button id="reportBtn" class="btn danger decision-btn" type="button"><i class="fa-solid fa-flag"></i> Report phishing</button>
+        <button id="trustBtn" class="btn safe decision-btn" type="button"><i class="fa-solid fa-check"></i> Trust message</button>
+      </div>
+      <div id="feedback" class="feedback hidden"><strong id="feedbackTitle"></strong><p id="feedbackText"></p></div>
+    </div>
+  </main>
+</section>
+
+<section id="results" class="hidden">
+  <main class="results"><div class="result">
+    <div class="result-brand">DALUMAT <span>|</span> PHISHLENS <small>GROUP 2 • STEM</small></div><i class="fa-solid fa-chart-column"></i><h2>Simulation complete</h2><p>Your final phishing detection accuracy:</p>
+    <div class="score"><span id="finalScore">0</span><small>%</small></div>
+    <div style="margin:18px 0 8px;font-size:13px;line-height:1.7">
+      <div><strong>Participant:</strong> <span id="finalName">—</span></div>
+      <div><strong>Date:</strong> <span id="finalDate">—</span></div>
+    </div>
+    <div class="result-grid">
+      <div class="result-stat"><strong id="finalCorrect">0</strong><span>Correct decisions</span></div>
+      <div class="result-stat"><strong id="finalPhish">0</strong><span>Phishing messages identified</span></div>
+      <div class="result-stat"><strong id="finalReviewed">0</strong><span>Messages reviewed</span></div>
+    </div>
+    <p id="resultText"></p>
+    <div class="result-actions"><button id="restartBtn" class="btn primary" type="button"><i class="fa-solid fa-rotate-right"></i> Run again</button></div>
+  </div></main>
+</section>
+
+<div id="modalBackdrop" class="modal-backdrop hidden" aria-hidden="true">
+  <div id="linkModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="linkModalTitle">
+    <div class="modal-head"><button class="modal-close" type="button" data-close-modal aria-label="Close"><i class="fa-solid fa-xmark"></i></button><h3 id="linkModalTitle">LINK INSPECTION</h3><p>Review the simulated destination without leaving PhishLens.</p></div>
+    <div class="modal-body"><div id="destination" class="destination"></div><div class="modal-hint">Examine the destination carefully. Look for unexpected domains, misspellings, look-alike names, unusual subdomains, or a destination that does not match the organization mentioned in the message.</div></div>
+    <div class="modal-foot"><button class="btn" type="button" data-close-modal>Close</button></div>
+  </div>
+
+  <div id="reasonModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="reasonTitle">
+    <div class="modal-head"><button class="modal-close" type="button" data-close-modal aria-label="Close"><i class="fa-solid fa-xmark"></i></button><h3 id="reasonTitle">Why are you reporting this message?</h3><p>Select all warning signs that influenced your decision.</p></div>
+    <div class="modal-body"><div id="reportReasons" class="reason-list"></div><div id="reportError" class="error-text" aria-live="polite"></div></div>
+    <div class="modal-foot"><button class="btn" type="button" data-close-modal>Cancel</button><button id="confirmReport" class="btn primary" type="button">Confirm report</button></div>
+  </div>
+
+  <div id="trustModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="trustTitle">
+    <div class="modal-head"><button class="modal-close" type="button" data-close-modal aria-label="Close"><i class="fa-solid fa-xmark"></i></button><h3 id="trustTitle">Why do you trust this message?</h3><p>Select all reasons that influenced your decision.</p></div>
+    <div class="modal-body"><div id="trustReasons" class="reason-list"></div><div id="trustError" class="error-text" aria-live="polite"></div></div>
+    <div class="modal-foot"><button class="btn" type="button" data-close-modal>Cancel</button><button id="confirmTrust" class="btn primary" type="button">Confirm trust</button></div>
+  </div>
+
+  <div id="leaveModal" class="modal small hidden" role="dialog" aria-modal="true" aria-labelledby="leaveTitle">
+    <div class="modal-head"><button class="modal-close" type="button" data-close-modal aria-label="Close"><i class="fa-solid fa-xmark"></i></button><h3 id="leaveTitle">Leave simulation?</h3></div>
+    <div class="modal-body"><div class="confirmation-copy">Your current simulation progress will be lost if you return to the home page.</div></div>
+    <div class="modal-foot"><button class="btn" type="button" data-close-modal>Stay here</button><button id="confirmLeave" class="btn primary" type="button">Leave simulation</button></div>
+  </div>
+</div>
+<div id="toast" class="toast" aria-live="polite"></div>
+
+<script>
+'use strict';
+
+const scenarios = [
+  {id:1,difficulty:'easy',sender:'Microsoft Security',address:'security@micr0soft-alert.example',subject:'Unusual sign-in activity detected',time:'9:42 AM',preview:'We detected a sign-in attempt from a new device.',phishing:true,link:'https://micr0soft-security.example/login',body:['We detected a sign-in attempt from a new device.','If this was not you, review your account activity immediately.'],explanation:'The sender uses a look-alike name in its domain: “micr0soft” contains a zero. The message also creates urgency around account access.',reasons:['sender','urgent','lookalike','unusualLink']},
+  {id:2,difficulty:'easy',sender:'School Registrar',address:'registrar@schoolportal.example',subject:'Student schedule update',time:'10:18 AM',preview:'The updated class schedule is now available.',phishing:false,link:'https://schoolportal.example/schedule',body:['The updated class schedule for the upcoming week is now available through the school portal.','Please check the schedule before Monday.'],explanation:'The sender and destination use the same fictional school domain, and the message does not ask for sensitive information.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:3,difficulty:'easy',sender:'Account Support',address:'support@account-check.example',subject:'Your account requires verification',time:'11:06 AM',preview:'Verify your information within 24 hours.',phishing:true,link:'https://verify-account-now.example/secure',body:['Our security system detected an issue with your account information.','Verify your information within 24 hours to prevent your account from being suspended.'],explanation:'The message uses a short deadline and directs the recipient to an unrelated verification domain instead of a normal account portal.',reasons:['urgent','unusualLink','sensitive','normalMismatch']},
+  {id:4,difficulty:'easy',sender:'Cloud Storage',address:'notifications@cloudstorage.example',subject:'Your shared document is ready',time:'1:34 PM',preview:'A document has been shared with you.',phishing:false,link:'https://cloudstorage.example/shared/document',body:['A document has been shared with you. You can view it using the link below.','This notification was generated automatically.'],explanation:'The destination matches the sender’s fictional service domain and the message does not request a password or other sensitive information.',reasons:['senderMatch','noSensitive','normalProcess']},
+  {id:5,difficulty:'easy',sender:'Prize Department',address:'winner@reward-center.example',subject:'Congratulations! You have been selected',time:'3:21 PM',preview:'Confirm your information to claim your reward.',phishing:true,link:'https://claim-reward-now.example/prize',body:['You have been selected to receive a special reward.','To claim it, confirm your information using the button below. Your claim will expire today.'],explanation:'An unexpected prize, pressure to act quickly, and a request for information are strong warning signs.',reasons:['prize','urgent','sensitive']},
+  {id:6,difficulty:'easy',sender:'Campus IT Help Desk',address:'helpdesk@campus-it.example',subject:'Planned network maintenance',time:'4:05 PM',preview:'Network services may be unavailable tonight.',phishing:false,link:'https://campus-it.example/notices/maintenance',body:['The campus network will undergo scheduled maintenance from 10:00 PM to 11:30 PM.','No action is required from students. This notice is for awareness only.'],explanation:'The message is informational, does not request credentials, and the link remains within the fictional campus IT domain.',reasons:['senderMatch','noSensitive','normalProcess']},
+  {id:7,difficulty:'easy',sender:'Delivery Desk',address:'updates@parcel-alert.example',subject:'Delivery attempt failed',time:'8:12 AM',preview:'A small fee is required to reschedule your delivery.',phishing:true,link:'https://parcel-fee.example/reschedule',body:['We could not complete your delivery because no one was available.','Pay the small rescheduling fee today to choose a new delivery time.'],explanation:'The message creates pressure around a delivery and asks for payment through a separate domain.',reasons:['urgent','sensitive','unusualLink','normalMismatch']},
+  {id:8,difficulty:'easy',sender:'Student Services',address:'studentservices@schoolportal.example',subject:'Library account reminder',time:'8:48 AM',preview:'Your borrowed materials are due next week.',phishing:false,link:'https://schoolportal.example/library',body:['This is a reminder that two library materials are due next week.','You can review your current loans through the student portal.'],explanation:'The sender and destination match the fictional school portal, and the reminder does not ask for unusual information.',reasons:['senderMatch','normalProcess']},
+  {id:9,difficulty:'easy',sender:'Microsoft 365 Notice',address:'office365@micros0ft-support.example',subject:'Mailbox storage limit reached',time:'9:03 AM',preview:'Your mailbox may stop receiving messages.',phishing:true,link:'https://microsoft-mailbox.example/verify',body:['Your mailbox has reached its storage limit.','Sign in through the link below to increase your storage before incoming mail is restricted.'],explanation:'The sender uses a look-alike Microsoft-style domain and pushes the recipient toward an unusual sign-in page.',reasons:['sender','lookalike','unusualLink','urgent']},
+  {id:10,difficulty:'easy',sender:'Student Council',address:'studentcouncil@schoolportal.example',subject:'Volunteer sign-up for campus event',time:'10:31 AM',preview:'Students can register for next month’s activity.',phishing:false,link:'https://schoolportal.example/student-council/volunteer',body:['The Student Council is accepting volunteers for next month’s campus activity.','Registration is optional and can be completed through the student portal.'],explanation:'The sender and destination use the same fictional school domain, and the request is optional rather than urgent.',reasons:['senderMatch','normalProcess']},
+
+  {id:11,difficulty:'medium',sender:'CloudShare Notifications',address:'no-reply@cloudshare.example',subject:'A file was shared with you',time:'11:14 AM',preview:'A classmate shared “Quarter 2 Review Notes”.',phishing:false,link:'https://cloudshare.example/files/q2-review',body:['A file named “Quarter 2 Review Notes” was shared with your school account.','Open the file using the CloudShare link below.'],explanation:'The sender and destination use the same fictional CloudShare domain, and the document-sharing request is consistent with the message context.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:12,difficulty:'medium',sender:'Campus Finance Office',address:'finance@schoolportal.example',subject:'Activity fee receipt available',time:'11:46 AM',preview:'Your receipt for the recent school activity is ready.',phishing:false,link:'https://schoolportal.example/finance/receipts/quarter2',body:['Your receipt for the recent school activity fee is now available in the student portal.','No payment is required from this message.'],explanation:'The message uses the expected fictional school domain and explicitly states that no payment is being requested from the email.',reasons:['senderMatch','noSensitive','normalProcess']},
+  {id:13,difficulty:'medium',sender:'IT Account Team',address:'accounts@campus-it.example',subject:'Password expiration notice',time:'12:02 PM',preview:'Your school password is scheduled for renewal.',phishing:false,link:'https://campus-it.example/account/password',body:['Your school password is scheduled for renewal according to the normal account policy.','Use the campus IT account page if you need to review the policy or update your password.'],explanation:'The sender and link remain within the fictional campus IT domain, and the message does not demand an immediate response.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:14,difficulty:'medium',sender:'Document Center',address:'sharing@docs-center.example',subject:'You have been mentioned in a document',time:'12:40 PM',preview:'You were mentioned in “Research Proposal Draft”.',phishing:false,link:'https://docs-center.example/document/research-proposal',body:['You were mentioned in a document titled “Research Proposal Draft”.','You can open the document from your document workspace.'],explanation:'The destination matches the document service named by the sender, and the request is a normal collaboration notification.',reasons:['senderMatch','normalProcess']},
+  {id:15,difficulty:'medium',sender:'Scholarship Office',address:'scholarships@schoolportal.example',subject:'Scholarship information session',time:'1:12 PM',preview:'An optional information session will be held Friday.',phishing:false,link:'https://schoolportal.example/scholarships/session',body:['The guidance office will host an optional scholarship information session on Friday.','Students can view the schedule and room details through the school portal.'],explanation:'The message is an expected school announcement, uses the school domain, and does not ask for credentials or payment.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:16,difficulty:'medium',sender:'Rewards Center',address:'updates@reward-center.example',subject:'Your points statement is available',time:'1:27 PM',preview:'Review your current rewards balance.',phishing:false,link:'https://reward-center.example/account/points',body:['Your latest points statement is available in your Rewards Center account.','This is a routine statement notification and no action is required.'],explanation:'The sender and destination use the same fictional rewards domain, and the message does not request sensitive information or urgent action.',reasons:['senderMatch','noSensitive','normalProcess']},
+  {id:17,difficulty:'medium',sender:'Package Service',address:'tracking@parcel-notify.example',subject:'Tracking update for your parcel',time:'2:04 PM',preview:'Your package has moved to the next sorting facility.',phishing:false,link:'https://parcel-notify.example/tracking/PG-20481',body:['Your parcel has moved to the next sorting facility.','Use the tracking page below to view the latest delivery estimate.'],explanation:'The tracking link stays on the same fictional parcel-notify domain and the message only provides status information.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:18,difficulty:'medium',sender:'Microsoft Account Team',address:'account-team@micr0soft-account.example',subject:'Security settings need attention',time:'2:35 PM',preview:'Review your security settings to keep your account protected.',phishing:true,link:'https://account-security.example/microsoft/review',body:['We recommend reviewing your account security settings after a recent sign-in event.','Use the secure review page below to continue.'],explanation:'The sender domain contains a look-alike spelling, while the link goes to a different domain. The message also uses a security prompt to encourage a sign-in.',reasons:['lookalike','sender','unusualLink','sensitive']},
+  {id:19,difficulty:'medium',sender:'Learning Platform',address:'notifications@learnspace.example',subject:'Assignment feedback posted',time:'3:02 PM',preview:'Your instructor has posted feedback on an assignment.',phishing:false,link:'https://learnspace.example/classes/feedback',body:['Feedback has been posted for one of your recent assignments.','Sign in through your usual Learning Platform page to view the feedback.'],explanation:'The sender and destination use the same fictional learning platform domain, and the message describes a normal student notification.',reasons:['senderMatch','normalProcess']},
+  {id:20,difficulty:'medium',sender:'Cloud Storage Admin',address:'admin@cloud-st0rage.example',subject:'Storage quota review',time:'3:25 PM',preview:'Your storage quota is almost full.',phishing:true,link:'https://cloud-storage-review.example/quota',body:['Your storage quota is almost full.','Review your storage plan today to avoid interruptions to file access.'],explanation:'The sender uses a look-alike spelling with a zero, and the destination does not match the apparent cloud storage service.',reasons:['lookalike','unusualLink','urgent']},
+  {id:21,difficulty:'medium',sender:'Campus Clinic',address:'clinic@schoolportal.example',subject:'Health form submission reminder',time:'3:41 PM',preview:'Please review the status of your submitted school form.',phishing:false,link:'https://schoolportal.example/forms/clinic',body:['This is a reminder to review the status of your previously submitted school form.','If the form is incomplete, the student portal will show what remains to be completed.'],explanation:'The sender and destination are on the same fictional school domain and the message does not ask for information directly by email.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:22,difficulty:'medium',sender:'Payment Desk',address:'billing@schoolportal.example',subject:'Payment confirmation',time:'4:10 PM',preview:'Your recent activity payment has been recorded.',phishing:false,link:'https://schoolportal.example/finance/history',body:['Your recent activity payment has been recorded in the school finance system.','You can view the transaction history through the student portal.'],explanation:'The sender and destination match the fictional school portal, and the message is a confirmation rather than a request for new payment.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:23,difficulty:'medium',sender:'IT Service Desk',address:'servicedesk@campus-it.example',subject:'Ticket #4821 updated',time:'4:28 PM',preview:'Your support ticket has received a new note.',phishing:false,link:'https://campus-it.example/support/tickets/4821',body:['Your IT support ticket has received a new note from the service desk.','Open the ticket to view the update.'],explanation:'The sender and destination match the fictional campus IT service and the action is a normal support-ticket update.',reasons:['senderMatch','normalProcess']},
+  {id:24,difficulty:'medium',sender:'Microsoft Document Share',address:'share@micro-soft-docs.example',subject:'Shared file: STEM Lab Results',time:'5:02 PM',preview:'A file has been shared with your account.',phishing:true,link:'https://micro-soft-docs.example/open/file',body:['A document titled “STEM Lab Results” has been shared with you.','Sign in through the link below to view the document.'],explanation:'The sender uses a misleading look-alike domain, and the sign-in destination is not an established Microsoft domain in this simulation.',reasons:['lookalike','unusualLink','sensitive']},
+  {id:25,difficulty:'medium',sender:'School Library',address:'library@schoolportal.example',subject:'Library opening hours update',time:'5:30 PM',preview:'Updated opening hours will apply next week.',phishing:false,link:'https://schoolportal.example/library/hours',body:['The library will use updated opening hours next week due to scheduled activities.','Please check the school portal for the current timetable.'],explanation:'The sender and destination match the fictional school portal, and the message is informational with no unusual request.',reasons:['senderMatch','normalProcess','noSensitive']},
+
+  {id:26,difficulty:'hard',sender:'Microsoft Security Center',address:'security@security-microsoft.example',subject:'Sign-in review completed',time:'8:17 AM',preview:'Review the details of a recent account event.',phishing:true,link:'https://security-microsoft.example/account/event',body:['A recent account event has been recorded for your profile.','Review the event details using the security center link below.'],explanation:'The message sounds routine, but the sender and destination use security-microsoft.example rather than the expected Microsoft domain. The domain is the important clue.',reasons:['sender','unusualLink','normalMismatch']},
+  {id:27,difficulty:'hard',sender:'School Registrar',address:'registrar@schoolportal.example',subject:'Enrollment record available',time:'8:46 AM',preview:'Your current enrollment record is ready to view.',phishing:false,link:'https://records.schoolportal.example/enrollment',body:['Your current enrollment record is ready to view in the school records system.','You can open the record using the school portal link below.'],explanation:'The sender belongs to the fictional schoolportal.example domain and the destination is a subdomain of that same organization. The request is consistent with a normal records notice.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:28,difficulty:'hard',sender:'Cloud Workspace',address:'notifications@cloudworkspace.example',subject:'Document access request',time:'9:20 AM',preview:'A user requested access to a shared document.',phishing:false,link:'https://cloudworkspace.example/access/request/781',body:['A user has requested access to one of your shared documents.','Open the workspace to review or approve the request.'],explanation:'The destination matches the sender’s fictional cloud workspace domain and the message asks the recipient to review a normal collaboration request.',reasons:['senderMatch','normalProcess']},
+  {id:29,difficulty:'hard',sender:'Delivery Operations',address:'dispatch@parcel-notify.example',subject:'Address confirmation requested',time:'9:51 AM',preview:'Please confirm the delivery address for an active parcel.',phishing:true,link:'https://parcel-notify.example-address.example/confirm',body:['We need to confirm the delivery address associated with an active parcel.','Please review the address through the confirmation page.'],explanation:'The link uses a domain that only looks related to the parcel service. The actual registered domain is parcel-notify.example-address.example, not parcel-notify.example.',reasons:['lookalike','unusualLink','normalMismatch']},
+  {id:30,difficulty:'hard',sender:'Student Records',address:'records@schoolportal.example',subject:'Transcript request status',time:'10:09 AM',preview:'Your transcript request has been updated.',phishing:false,link:'https://records.schoolportal.example/transcripts/status',body:['Your transcript request status has been updated.','Open the student records page to review the current status.'],explanation:'The sender and destination are consistent with the fictional school records service and the message only provides a status update.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:31,difficulty:'hard',sender:'Finance Review',address:'review@pay-center.example',subject:'Payment profile review',time:'10:44 AM',preview:'A routine review of your payment profile is available.',phishing:true,link:'https://pay-center.example/account/review',body:['A routine review of your payment profile is available.','Please confirm your account information so the review can be completed.'],explanation:'The message requests account information through a generic payment domain without enough context for why the recipient should provide it.',reasons:['sensitive','normalMismatch','unusualLink']},
+  {id:32,difficulty:'hard',sender:'Campus Finance Office',address:'finance@schoolportal.example',subject:'Invoice copy requested',time:'11:03 AM',preview:'A copy of your school activity invoice is available.',phishing:false,link:'https://schoolportal.example/finance/invoices',body:['A copy of your school activity invoice is available in the student portal.','No payment is requested through this notification.'],explanation:'The sender and destination use the same fictional school domain and the message clearly states that it is only providing an invoice copy.',reasons:['senderMatch','noSensitive','normalProcess']},
+  {id:33,difficulty:'hard',sender:'Microsoft Collaboration',address:'no-reply@microsoft-collab.example',subject:'You have a new document comment',time:'11:38 AM',preview:'A collaborator commented on a shared document.',phishing:true,link:'https://microsoft-collab.example/document/comment',body:['A collaborator added a comment to a shared document.','Open the document through the collaboration page to read the comment.'],explanation:'The message uses a plausible Microsoft-style name, but the actual domain is microsoft-collab.example. In this simulation, that domain is not an official Microsoft domain.',reasons:['sender','unusualLink','lookalike']},
+  {id:34,difficulty:'hard',sender:'Learning Platform',address:'alerts@learnspace.example',subject:'New sign-in from a recognized device',time:'12:15 PM',preview:'A recognized device accessed your learning account.',phishing:false,link:'https://learnspace.example/account/security',body:['A recognized device accessed your learning account.','If you want to review recent activity, open the security page in Learning Platform.'],explanation:'The sender and destination match the fictional learning platform. The message is informational and does not pressure the user to sign in through an unrelated domain.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:35,difficulty:'hard',sender:'Rewards Program',address:'account@reward-center.example',subject:'Rewards account adjustment',time:'12:42 PM',preview:'Your points balance was adjusted after a recent transaction.',phishing:false,link:'https://reward-center.example/account/activity',body:['Your rewards balance was adjusted after a recent transaction.','View the activity page for details.'],explanation:'The sender and destination match the fictional rewards service and the message does not ask for credentials or urgent payment.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:36,difficulty:'hard',sender:'IT Security Desk',address:'security@campus-it.example',subject:'Security awareness training assigned',time:'1:07 PM',preview:'A short security module has been assigned to your account.',phishing:false,link:'https://campus-it.example/training/security-awareness',body:['A security awareness module has been assigned to your student account.','Complete it through the campus IT training page when convenient.'],explanation:'The sender and destination are consistent with the fictional campus IT service and the message does not ask for unusual account information.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:37,difficulty:'hard',sender:'Parcel Support',address:'support@parcel-notify.example',subject:'Delivery preference updated',time:'1:36 PM',preview:'Your delivery preference was changed successfully.',phishing:false,link:'https://parcel-notify.example/preferences',body:['Your delivery preference was changed successfully.','If you did not make this change, review your delivery account through the parcel service.'],explanation:'The sender and destination match the fictional parcel service. The message provides a standard account notification without an unrelated domain.',reasons:['senderMatch','normalProcess']},
+  {id:38,difficulty:'hard',sender:'School Events Office',address:'events@schoolportal.example',subject:'Room change for tomorrow’s seminar',time:'2:08 PM',preview:'Tomorrow’s seminar will use a different room.',phishing:false,link:'https://schoolportal.example/events/seminar',body:['Tomorrow’s seminar will be moved to Room 204 due to a scheduling conflict.','Please check the event page for the updated details.'],explanation:'The message is a normal school notice and the link stays on the fictional school portal domain.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:39,difficulty:'hard',sender:'Account Protection',address:'notice@account-protect.example',subject:'New recovery contact added',time:'2:31 PM',preview:'A recovery contact was added to your account.',phishing:true,link:'https://account-protect.example/security/recovery',body:['A recovery contact was recently added to your account.','If this was not expected, sign in through the security page below to review the change.'],explanation:'The message creates a plausible security scenario, but the sender and destination use a generic account-protect.example domain with no clear organization identity.',reasons:['sender','unusualLink','normalMismatch']},
+  {id:40,difficulty:'hard',sender:'Cloud Workspace',address:'security@cloudworkspace.example',subject:'New sign-in notification',time:'3:05 PM',preview:'A new sign-in was recorded for your workspace.',phishing:false,link:'https://cloudworkspace.example/account/security',body:['A new sign-in was recorded for your workspace.','Review recent activity from the security page if you do not recognize the device.'],explanation:'The sender and destination match the fictional cloud workspace domain and the security notice points to the service’s own account page.',reasons:['senderMatch','normalProcess']},
+  {id:41,difficulty:'hard',sender:'Finance Support',address:'support@finance-review.example',subject:'Refund processing update',time:'3:29 PM',preview:'A refund request is waiting for your confirmation.',phishing:true,link:'https://finance-review.example/refund/confirm',body:['Your refund request is waiting for confirmation.','Confirm your payment details so the refund can be processed.'],explanation:'The message asks for payment details through a generic finance domain. A refund notification should not require an unexpected submission of sensitive payment information through an unrelated process.',reasons:['sensitive','normalMismatch','unusualLink']},
+  {id:42,difficulty:'hard',sender:'Guidance Office',address:'guidance@schoolportal.example',subject:'College planning resources',time:'4:01 PM',preview:'New planning resources are available for students.',phishing:false,link:'https://schoolportal.example/guidance/college-planning',body:['New college planning resources are available through the guidance office.','The resources include application timelines and general information for students.'],explanation:'The sender and destination use the same fictional school domain and the message is informational rather than asking for credentials or payment.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:43,difficulty:'hard',sender:'Microsoft Account Notice',address:'alerts@microsoft-account-center.example',subject:'Recovery email confirmation',time:'4:19 PM',preview:'Confirm a recently added recovery address.',phishing:true,link:'https://microsoft-account-center.example/recovery',body:['A recovery email address was recently added to your account.','Confirm the change using the account center below.'],explanation:'The domain looks official at a glance, but microsoft-account-center.example is not an official Microsoft domain in this fictional simulation. The domain itself is the key clue.',reasons:['sender','lookalike','unusualLink']},
+  {id:44,difficulty:'hard',sender:'School Registrar',address:'registrar@schoolportal.example',subject:'Document pickup schedule',time:'4:43 PM',preview:'Your requested school document is ready for pickup.',phishing:false,link:'https://schoolportal.example/registrar/pickup',body:['Your requested school document is ready for pickup.','Please review the available pickup schedule through the student portal.'],explanation:'The sender and destination are consistent with the fictional school portal and the request is a normal administrative notice.',reasons:['senderMatch','normalProcess','noSensitive']},
+  {id:45,difficulty:'hard',sender:'Shared Documents',address:'notifications@shared-docs.example',subject:'Review requested: research draft',time:'5:01 PM',preview:'You were asked to review a shared research document.',phishing:false,link:'https://shared-docs.example/research/draft',body:['You were asked to review a shared research document.','Open the document workspace to add comments or suggestions.'],explanation:'The sender and destination use the same fictional document service and the request is consistent with collaborative document review.',reasons:['senderMatch','normalProcess']},
+  {id:46,difficulty:'hard',sender:'Prize Center',address:'claims@prize-center.example',subject:'Final notice: reward claim pending',time:'5:18 PM',preview:'Your reward claim is waiting for confirmation.',phishing:true,link:'https://prize-center.example/claim/confirm',body:['Your reward claim is still waiting for confirmation.','Submit your personal details before the claim window closes tonight.'],explanation:'The unexpected reward, deadline, and request for personal details are strong phishing indicators even though the message looks polished.',reasons:['prize','urgent','sensitive']},
+  {id:47,difficulty:'hard',sender:'Campus IT Help Desk',address:'helpdesk@campus-it.example',subject:'Scheduled account maintenance',time:'5:36 PM',preview:'Some account services will be briefly unavailable.',phishing:false,link:'https://campus-it.example/notices/account-maintenance',body:['Some campus account services will be briefly unavailable during scheduled maintenance tonight.','No action is required. This notice is provided so users can plan around the maintenance window.'],explanation:'The sender and destination match the fictional campus IT service, and the message explicitly says no action is required.',reasons:['senderMatch','noSensitive','normalProcess']},
+  {id:48,difficulty:'hard',sender:'Document Sharing',address:'no-reply@shared-docs.example',subject:'Document access expires today',time:'6:04 PM',preview:'Your access to a shared file is scheduled to expire.',phishing:true,link:'https://shared-docs-expiry.example/access',body:['Your access to a shared file is scheduled to expire today.','Sign in through the link below to keep access active.'],explanation:'The sender name sounds familiar, but the link moves to a different domain and uses an artificial deadline to push a sign-in.',reasons:['urgent','unusualLink','normalMismatch']},
+  {id:49,difficulty:'hard',sender:'Learning Platform',address:'notifications@learnspace.example',subject:'Course announcement posted',time:'6:21 PM',preview:'A new announcement is available in your class.',phishing:false,link:'https://learnspace.example/classes/announcements',body:['A new announcement has been posted in one of your classes.','Open the course page through Learning Platform to read it.'],explanation:'The sender and destination match the fictional Learning Platform domain and the message describes a routine course notification.',reasons:['senderMatch','normalProcess']},
+  {id:50,difficulty:'hard',sender:'IT Account Services',address:'service@campus-it-help.example',subject:'Account access will be disabled tonight',time:'6:48 PM',preview:'Confirm your account immediately to avoid losing access.',phishing:true,link:'https://campus-it-help.example/verify',body:['Your account access will be disabled tonight unless you confirm your account.','Use the verification page below to prevent interruption.'],explanation:'The sender domain is similar to the campus IT domain but is actually campus-it-help.example, while legitimate campus IT messages in this simulation use campus-it.example. The threat of immediate account loss adds pressure.',reasons:['lookalike','urgent','unusualLink','normalMismatch']}
+];
+
+const reportReasonOptions=[
+  ['domain','Suspicious website or domain'],['sender','Sender address looks unusual'],['urgent','Urgent or threatening language'],['sensitive','Unexpected request for information'],['lookalike','Look-alike spelling or domain'],['prize','Unexpected prize or reward'],['unusualLink','Message asks me to sign in through an unusual link'],['normalMismatch','Request does not match the normal process'],['attachment','Suspicious attachment'],['other','Other relevant phishing indicators']
+];
+const trustReasonOptions=[
+  ['senderMatch','Sender/domain appears to match the organization'],['linkMatch','Link destination matches the organization'],['noUrgency','No unnecessary urgency or threat'],['reasonable','Request is expected or reasonable'],['noSensitive','No request for sensitive information'],['normalProcess','Message follows a normal communication process'],['contact','Contact details are consistent']
+];
+
+let currentIndex=null;
+let currentDecision=null;
+let currentReasons=[];
+let activeFilter='all';
+let searchTerm='';
+let messages=[];
+let completedCount=0;
+let correctCount=0;
+let phishingIdentified=0;
+let reviewedCount=0;
+let participantName='';
+let participantDate='';
+const RESULTS_ENDPOINT=''; // Paste your deployed Google Apps Script web-app URL here.
+let resultSubmitted=false;
+let leavingConfirmed=false;
+let activeModal=null;
+let modalBusy=false;
+
+const $=id=>document.getElementById(id);
+const home=$('home');
+const simulation=$('simulation');
+const results=$('results');
+const inbox=$('inbox');
+const reader=$('reader');
+const modalBackdrop=$('modalBackdrop');
+
+function show(section){
+  home.classList.add('hidden');
+  simulation.classList.add('hidden');
+  results.classList.add('hidden');
+  section.classList.remove('hidden');
+}
+
+function buildSimulationMessages(){
+  const shuffledScenarios=[...scenarios];
+  for(let i=shuffledScenarios.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [shuffledScenarios[i],shuffledScenarios[j]]=[shuffledScenarios[j],shuffledScenarios[i]];
+  }
+  return shuffledScenarios.map(s=>({
+    ...s,
+    reviewed:false,
+    decision:null,
+    decisionReasons:[]
+  }));
+}
+
+function startSimulation(){
+  participantName=$('participantName').value.trim();
+  participantDate=$('participantDate').value;
+  if(!participantName){
+    $('participantName').focus();
+    showToast('Please enter your name before starting.');
+    return;
+  }
+  if(!participantDate){
+    $('participantDate').focus();
+    showToast('Please select the simulation date.');
+    return;
+  }
+  resultSubmitted=false;
+  messages=buildSimulationMessages();
+  currentIndex=null;
+  currentDecision=null;
+  currentReasons=[];
+  activeFilter='all';
+  searchTerm='';
+  completedCount=0;
+  correctCount=0;
+  phishingIdentified=0;
+  reviewedCount=0;
+  $('searchInput').value='';
+  $('filterAll').classList.add('active');
+  $('filterReviewed').classList.remove('active');
+  show(simulation);
+  updateCounters();
+  renderInbox();
+}
+
+function getVisibleMessages(){
+  const query=searchTerm.trim().toLowerCase();
+  return messages.filter(s=>{
+    if(activeFilter==='reviewed'&&!s.reviewed)return false;
+    if(!query)return true;
+    return `${s.sender} ${s.address} ${s.subject} ${s.preview}`.toLowerCase().includes(query);
+  });
+}
+
+function renderInbox(){
+  reader.classList.add('hidden');
+  inbox.classList.remove('hidden');
+  updateCounters();
+  const visible=getVisibleMessages();
+  let html=`<div class="inbox-meta"><span>${visible.length} shown</span><span>${messages.length} in inbox</span></div>`;
+  if(!visible.length){
+    html+=`<div class="empty">No messages match the current filter or search.</div>`;
+  }else{
+    html+=visible.map(s=>`<div class="mail-row ${s.reviewed?'reviewed':''}" data-id="${s.id}" tabindex="0" role="button" aria-label="Open message from ${escapeHtml(s.sender)}: ${escapeHtml(s.subject)}">
+      <div class="mail-icon"><i class="fa-regular fa-envelope"></i></div>
+      <div><div class="sender-line"><div class="sender">${escapeHtml(s.sender)}</div>${s.reviewed?'<span class="reviewed-badge">Reviewed</span>':''}</div><div class="subject">${escapeHtml(s.subject)}</div><div class="preview">${escapeHtml(s.preview)}</div></div>
+      <div class="time">${escapeHtml(s.time)}</div>
+    </div>`).join('');
+  }
+  inbox.innerHTML=html;
+  inbox.querySelectorAll('.mail-row').forEach(row=>{
+    const open=()=>openMessage(Number(row.dataset.id));
+    row.addEventListener('click',open);
+    row.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
+  });
+}
+
+function openMessage(id){
+  const index=messages.findIndex(s=>s.id===id);
+  if(index<0)return;
+  currentIndex=index;
+  currentDecision=messages[index].decision;
+  currentReasons=messages[index].decisionReasons||[];
+  const s=messages[index];
+  inbox.classList.add('hidden');
+  reader.classList.remove('hidden');
+  $('subject').textContent=s.subject;
+  $('sender').textContent=s.sender;
+  $('address').textContent=s.address;
+  $('body').innerHTML=`${s.body.map(p=>`<p>${escapeHtml(p)}</p>`).join('')}<button id="inspectLink" class="sim-link" type="button"><i class="fa-solid fa-link"></i> Inspect link</button><div class="reader-note">The destination is simulated and will not open.</div>`;
+  $('feedback').classList.add('hidden');
+  const readerReviewed=$('readerReviewed');
+  if(readerReviewed) readerReviewed.classList.toggle('hidden',!s.reviewed);
+  $('reportBtn').disabled=Boolean(s.decision);
+  $('trustBtn').disabled=Boolean(s.decision);
+  if(s.decision){
+    showFeedback(s.decision===s.phishing,s);
+  }
+  // Link inspection is handled through one delegated listener below. This avoids
+  // stale/doubled listeners when the reader body is rebuilt repeatedly.
+  const inspectLink=$('inspectLink');
+  if(inspectLink) inspectLink.dataset.url=s.link;
+}
+
+function showFeedback(correct,s){
+  const feedback=$('feedback');
+  feedback.classList.remove('hidden','correct','wrong');
+  feedback.classList.add(correct?'correct':'wrong');
+  $('feedbackTitle').textContent=correct?'Correct decision':'Incorrect decision';
+  $('feedbackText').innerHTML=`${escapeHtml(s.explanation)} <span class="review-state">This message is now marked as reviewed.</span>`;
+}
+
+function openReasonModal(type){
+  if(currentIndex===null)return;
+  const s=messages[currentIndex];
+  if(s.decision)return;
+  currentDecision=type;
+  const container=type==='report'?$('reportReasons'):$('trustReasons');
+  const error=type==='report'?$('reportError'):$('trustError');
+  const options=type==='report'?reportReasonOptions:trustReasonOptions;
+  container.innerHTML=options.map(([value,label])=>`<label class="reason-option"><input type="checkbox" value="${value}"><span>${escapeHtml(label)}</span></label>`).join('');
+  error.textContent='';
+  modalBusy=false;
+  const confirm=type==='report'?$('confirmReport'):$('confirmTrust');
+  if(confirm)confirm.disabled=false;
+  const modal=type==='report'?$('reasonModal'):$('trustModal');
+  openModal(modal);
+}
+
+function confirmDecision(type){
+  if(currentIndex===null)return;
+  const s=messages[currentIndex];
+  if(s.decision){closeModal();return;}
+  if(modalBusy)return;
+  const container=type==='report'?$('reportReasons'):$('trustReasons');
+  const error=type==='report'?$('reportError'):$('trustError');
+  const checked=[...container.querySelectorAll('input:checked')].map(i=>i.value);
+  if(!checked.length){error.textContent='Select at least one reason before confirming.';return;}
+  modalBusy=true;
+  const confirm=type==='report'?$('confirmReport'):$('confirmTrust');
+  if(confirm)confirm.disabled=true;
+  currentDecision=type==='report';
+  currentReasons=checked;
+  const correct=currentDecision===s.phishing;
+  s.decision=currentDecision;
+  s.decisionReasons=checked;
+  if(!s.reviewed){
+    s.reviewed=true;
+    reviewedCount++;
+  }
+  completedCount++;
+  if(correct)correctCount++;
+  if(currentDecision&&s.phishing)phishingIdentified++;
+  closeModal();
+  updateCounters();
+  showFeedback(correct,s);
+  const readerReviewed=$('readerReviewed');
+  if(readerReviewed) readerReviewed.classList.remove('hidden');
+  $('reportBtn').disabled=true;
+  $('trustBtn').disabled=true;
+
+  if(completedCount>=messages.length){
+    setTimeout(showResults,220);
+  }
+}
+
+function updateCounters(){
+  const accuracy=completedCount?Math.round(correctCount/completedCount*100):0;
+  $('inboxCount').textContent=messages.length;
+  $('reviewedCount').textContent=reviewedCount;
+  $('accuracyCount').textContent=`${accuracy}%`;
+  const progress=Math.round((completedCount/messages.length)*100)||0;
+  const progressFill=$('progressFill');
+  if(progressFill)progressFill.style.width=`${progress}%`;
+}
+
+async function submitResult(){
+  if(resultSubmitted||!RESULTS_ENDPOINT)return;
+  resultSubmitted=true;
+  const accuracy=completedCount?Math.round(correctCount/completedCount*100):0;
+  const payload=new URLSearchParams({
+    name:participantName,
+    date:participantDate,
+    score:`${correctCount}/${messages.length}`,
+    accuracy:String(accuracy),
+    reviewed:String(reviewedCount),
+    phishingIdentified:String(phishingIdentified),
+    completedAt:new Date().toISOString()
+  });
+  try{
+    await fetch(RESULTS_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:payload.toString(),keepalive:true});
+    showToast('Result submitted.');
+  }catch(error){
+    resultSubmitted=false;
+    showToast('Result could not be submitted.');
+    console.error('PhishLens result submission failed:',error);
+  }
+}
+
+function showResults(){
+  const accuracy=completedCount?Math.round(correctCount/completedCount*100):0;
+  $('finalName').textContent=participantName||'—';
+  $('finalDate').textContent=participantDate||'—';
+  $('finalScore').textContent=accuracy;
+  $('finalCorrect').textContent=correctCount;
+  $('finalPhish').textContent=phishingIdentified;
+  $('finalReviewed').textContent=reviewedCount;
+  $('resultText').textContent=`You completed all ${messages.length} messages. Accuracy is based on your report/trust decisions across the reviewed messages.`;
+  show(results);
+  submitResult();
+}
+
+function openLinkModal(url){
+  $('destination').textContent=url;
+  openModal($('linkModal'));
+}
+
+function openModal(modal){
+  if(!modal||modalBusy)return;
+  activeModal=modal;
+  modalBackdrop.classList.remove('hidden');
+  modalBackdrop.setAttribute('aria-hidden','false');
+  document.querySelectorAll('.modal').forEach(m=>m.classList.add('hidden'));
+  modal.classList.remove('hidden');
+  const focusTarget=modal.querySelector('button:not([data-close-modal]),input');
+  if(focusTarget)requestAnimationFrame(()=>focusTarget.focus());
+}
+
+function closeModal(){
+  modalBusy=false;
+  document.querySelectorAll('.modal').forEach(m=>m.classList.add('hidden'));
+  modalBackdrop.classList.add('hidden');
+  modalBackdrop.setAttribute('aria-hidden','true');
+  activeModal=null;
+}
+
+function requestHome(){
+  if(!simulation.classList.contains('hidden')&&!leavingConfirmed){
+    openModal($('leaveModal'));
+    return;
+  }
+  leavingConfirmed=false;
+  closeModal();
+  show(home);
+}
+
+function confirmLeave(){
+  leavingConfirmed=true;
+  messages=[];
+  currentIndex=null;
+  closeModal();
+  show(home);
+  leavingConfirmed=false;
+}
+
+function escapeHtml(value){
+  return String(value).replace(/[&<>'"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
+}
+
+function showToast(message){
+  const toast=$('toast');
+  toast.textContent=message;
+  toast.classList.add('show');
+  clearTimeout(showToast.timer);
+  showToast.timer=setTimeout(()=>toast.classList.remove('show'),2200);
+}
+
+$('startBtn').addEventListener('click',startSimulation);
+$('restartBtn').addEventListener('click',startSimulation);
+$('brandBtn').addEventListener('click',requestHome);
+$('backBtn').addEventListener('click',renderInbox);
+$('reportBtn').addEventListener('click',()=>openReasonModal('report'));
+$('trustBtn').addEventListener('click',()=>openReasonModal('trust'));
+$('confirmReport').addEventListener('click',()=>confirmDecision('report'));
+$('confirmTrust').addEventListener('click',()=>confirmDecision('trust'));
+$('confirmLeave').addEventListener('click',confirmLeave);
+$('filterAll').addEventListener('click',()=>{activeFilter='all';$('filterAll').classList.add('active');$('filterReviewed').classList.remove('active');renderInbox();});
+$('filterReviewed').addEventListener('click',()=>{activeFilter='reviewed';$('filterReviewed').classList.remove('active');$('filterAll').classList.remove('active');$('filterReviewed').classList.add('active');renderInbox();});
+$('searchInput').addEventListener('input',e=>{searchTerm=e.target.value;renderInbox();});
+
+// Use event delegation for modal controls and the dynamically-created Inspect link.
+// This keeps controls working after the reader body is rebuilt with innerHTML.
+document.addEventListener('click',e=>{
+  const close=e.target.closest('[data-close-modal]');
+  if(close){closeModal();return;}
+  const inspect=e.target.closest('#inspectLink');
+  if(inspect){e.preventDefault();openLinkModal(inspect.dataset.url||'');return;}
+  if(e.target===modalBackdrop){closeModal();}
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&!modalBackdrop.classList.contains('hidden'))closeModal();
+});
+
+// Initial state: home page, no simulation progress.
+if(!$('participantDate').value){
+  const now=new Date();
+  const localDate=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,10);
+  $('participantDate').value=localDate;
+}
+show(home);
+</script>
+</body>
+</html>
