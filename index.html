@@ -1,0 +1,970 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishGuard — Phishing Simulation</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f1f3f6;
+            color: #222;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           HOME SCREEN
+        ========================= */
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        #home {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .home-card {
+            background: white;
+            width: 600px;
+            max-width: 100%;
+            padding: 50px;
+            border-radius: 18px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .home-card h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .home-card h1 span {
+            color: #d93025;
+        }
+
+        .home-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .start-btn {
+            background: #d93025;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 17px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .start-btn:hover {
+            background: #b9231b;
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           SIMULATION
+        ========================= */
+
+        #simulation {
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: #202124;
+            color: white;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+        }
+
+        .topbar-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .score {
+            background: #303134;
+            padding: 9px 15px;
+            border-radius: 8px;
+        }
+
+        .simulation-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 20px;
+            gap: 20px;
+        }
+
+        /* Inbox */
+
+        .inbox {
+            width: 350px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+        }
+
+        .inbox-header {
+            padding: 18px;
+            border-bottom: 1px solid #ddd;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .email-item {
+            padding: 18px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .email-item:hover {
+            background: #f5f5f5;
+        }
+
+        .email-item.selected {
+            background: #eeeeee;
+        }
+
+        .email-sender {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .email-subject {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .email-preview {
+            font-size: 13px;
+            color: #777;
+        }
+
+        .warning-dot {
+            color: #d93025;
+        }
+
+        .safe-dot {
+            color: #188038;
+        }
+
+        /* Email */
+
+        .email-view {
+            flex: 1;
+            background: white;
+            border-radius: 12px;
+            min-height: 600px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        .email-placeholder {
+            height: 100%;
+            min-height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #888;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .email-content {
+            display: none;
+        }
+
+        .email-content.active {
+            display: block;
+        }
+
+        .email-header {
+            padding: 25px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .email-header h2 {
+            margin-bottom: 15px;
+        }
+
+        .sender-info {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .email-body {
+            padding: 30px;
+            line-height: 1.7;
+        }
+
+        .fake-link {
+            display: inline-block;
+            background: #1a73e8;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 7px;
+            text-decoration: none;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+
+        .fake-link:hover {
+            background: #1558b0;
+        }
+
+        /* Investigation panel */
+
+        .investigate {
+            background: #f8f9fa;
+            border-top: 1px solid #ddd;
+            padding: 20px;
+        }
+
+        .investigate h3 {
+            margin-bottom: 10px;
+        }
+
+        .url-box {
+            background: #202124;
+            color: #8ab4f8;
+            padding: 12px;
+            border-radius: 7px;
+            word-break: break-all;
+            font-family: monospace;
+            margin-bottom: 15px;
+        }
+
+        .decision-buttons {
+            display: flex;
+            gap: 10px;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .decision-buttons button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .phishing-btn {
+            background: #d93025;
+            color: white;
+        }
+
+        .safe-btn {
+            background: #188038;
+            color: white;
+        }
+
+        .decision-buttons button:hover {
+            opacity: 0.85;
+        }
+
+        /* =========================
+           FEEDBACK
+        ========================= */
+
+        .feedback {
+            display: none;
+            padding: 20px;
+            margin: 0 20px 20px;
+            border-radius: 10px;
+        }
+
+        .feedback.correct {
+            display: block;
+            background: #e6f4ea;
+            border: 1px solid #b7dfc2;
+            color: #137333;
+        }
+
+        .feedback.incorrect {
+            display: block;
+            background: #fce8e6;
+            border: 1px solid #f5c2c0;
+            color: #a50e0e;
+        }
+
+        /* =========================
+           RESULTS
+        ========================= */
+
+        #results {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .result-card {
+            background: white;
+            width: 600px;
+            max-width: 100%;
+            padding: 45px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        }
+
+        .result-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .result-card h1 {
+            margin-bottom: 20px;
+        }
+
+        .accuracy {
+            font-size: 60px;
+            font-weight: bold;
+            color: #d93025;
+            margin: 20px 0;
+        }
+
+        .result-details {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .restart-btn {
+            background: #202124;
+            color: white;
+            border: none;
+            padding: 13px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .simulation-container {
+                flex-direction: column;
+            }
+
+            .inbox {
+                width: 100%;
+            }
+
+            .email-view {
+                min-height: 500px;
+            }
+
+            .email-placeholder {
+                min-height: 300px;
+            }
+
+            .home-card {
+                padding: 30px 20px;
+            }
+
+            .home-card h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     HOME
+========================= -->
+
+<section id="home" class="screen active">
+
+    <div class="home-card">
+
+        <div class="logo">🛡️</div>
+
+        <h1>Phish<span>Guard</span></h1>
+
+        <p>
+            Can you tell the difference between a legitimate message
+            and a phishing attempt?
+        </p>
+
+        <p>
+            Explore messages, inspect links, and make your decision.
+            Your goal is to identify which messages are safe and which
+            ones are trying to trick you.
+        </p>
+
+        <button class="start-btn" onclick="startSimulation()">
+            START SIMULATION
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SIMULATION
+========================= -->
+
+<section id="simulation" class="screen">
+
+    <div class="topbar">
+
+        <div class="topbar-title">
+            🛡️ PhishGuard Simulation
+        </div>
+
+        <div class="score">
+            Scenario <span id="currentNumber">1</span>/5
+        </div>
+
+    </div>
+
+
+    <div class="simulation-container">
+
+        <!-- INBOX -->
+
+        <div class="inbox">
+
+            <div class="inbox-header">
+                📥 Inbox
+            </div>
+
+            <div id="emailList"></div>
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="email-view">
+
+            <div id="emailPlaceholder" class="email-placeholder">
+                <div>
+                    <h2>📩 Select a message</h2>
+                    <p>
+                        Choose a message from your inbox to investigate it.
+                    </p>
+                </div>
+            </div>
+
+
+            <div id="emailContent" class="email-content">
+
+                <div class="email-header">
+
+                    <h2 id="emailSubject"></h2>
+
+                    <div class="sender-info">
+
+                        <strong>From:</strong>
+                        <span id="emailSender"></span>
+
+                        <br>
+
+                        <strong>To:</strong>
+                        You
+
+                    </div>
+
+                </div>
+
+
+                <div class="email-body">
+
+                    <p id="emailText"></p>
+
+                    <a
+                        id="fakeLink"
+                        class="fake-link"
+                        href="javascript:void(0)"
+                        onclick="inspectLink()"
+                    >
+                        <span id="linkText"></span>
+                    </a>
+
+                </div>
+
+
+                <div id="investigationPanel" class="investigate">
+
+                    <h3>🔎 Investigate</h3>
+
+                    <p>
+                        You can inspect the link before making your decision.
+                    </p>
+
+                    <div id="urlBox" class="url-box">
+                        Click the link above to inspect it.
+                    </div>
+
+                </div>
+
+
+                <div id="feedback" class="feedback"></div>
+
+
+                <div class="decision-buttons">
+
+                    <button
+                        class="phishing-btn"
+                        onclick="makeDecision(true)"
+                    >
+                        ⚠️ REPORT PHISHING
+                    </button>
+
+                    <button
+                        class="safe-btn"
+                        onclick="makeDecision(false)"
+                    >
+                        ✓ TRUST MESSAGE
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     RESULTS
+========================= -->
+
+<section id="results" class="screen">
+
+    <div class="result-card">
+
+        <div class="result-icon">🎯</div>
+
+        <h1>Simulation Complete</h1>
+
+        <div id="accuracy" class="accuracy">
+            0%
+        </div>
+
+        <div class="result-details">
+
+            <p>
+                You correctly identified
+                <strong><span id="correctAnswers">0</span></strong>
+                out of
+                <strong>5</strong>
+                messages.
+            </p>
+
+            <p id="resultMessage"></p>
+
+        </div>
+
+        <button
+            class="restart-btn"
+            onclick="location.reload()"
+        >
+            TRY AGAIN
+        </button>
+
+    </div>
+
+</section>
+
+
+<script>
+
+    /* =====================================
+       PHISHING SCENARIOS
+    ===================================== */
+
+    const emails = [
+
+        {
+            sender: "GCash Security <security@gcash-secure-ph.com>",
+            subject: "URGENT: Verify your account",
+            text:
+                "We detected unusual activity on your account. " +
+                "Please verify your information within 30 minutes " +
+                "to prevent your account from being suspended.",
+            linkText: "VERIFY MY ACCOUNT",
+            url: "https://gcash-secure-ph.com/verify",
+            phishing: true,
+            explanation:
+                "This is phishing. The sender uses a suspicious domain " +
+                "that does not belong to the legitimate GCash website. " +
+                "The message also creates urgency to pressure you into acting quickly."
+        },
+
+        {
+            sender: "School Registrar <registrar@loocintegratedschool.edu.ph>",
+            subject: "Your enrollment confirmation",
+            text:
+                "Your enrollment information has been successfully recorded. " +
+                "You may view your confirmation through the school portal.",
+            linkText: "OPEN SCHOOL PORTAL",
+            url: "https://loocintegratedschool.edu.ph/student-portal",
+            phishing: false,
+            explanation:
+                "This message is legitimate. The sender's domain matches " +
+                "the school's domain and the message does not ask for " +
+                "unusual information."
+        },
+
+        {
+            sender: "Facebook Support <support@facebook-security-help.com>",
+            subject: "Your account will be deleted",
+            text:
+                "Your account has violated our community guidelines. " +
+                "If you do not appeal within 15 minutes, your account " +
+                "will be permanently deleted.",
+            linkText: "APPEAL NOW",
+            url: "https://facebook-security-help.com/appeal",
+            phishing: true,
+            explanation:
+                "This is phishing. The domain is suspicious and the message " +
+                "uses fear and an extremely short deadline to pressure you."
+        },
+
+        {
+            sender: "Spotify <no-reply@spotify.com>",
+            subject: "Your payment was successful",
+            text:
+                "Your monthly subscription payment was successfully processed. " +
+                "You can review your subscription details from your account.",
+            linkText: "VIEW SUBSCRIPTION",
+            url: "https://www.spotify.com/account/subscription/",
+            phishing: false,
+            explanation:
+                "This message is legitimate. The sender uses the official " +
+                "spotify.com domain and the link points to the same domain."
+        },
+
+        {
+            sender: "Delivery Service <delivery-update@parcel-alert.net>",
+            subject: "Your package could not be delivered",
+            text:
+                "We attempted to deliver your package but could not complete " +
+                "the delivery. Please confirm your information to reschedule.",
+            linkText: "RESCHEDULE DELIVERY",
+            url: "https://parcel-alert.net/confirm",
+            phishing: true,
+            explanation:
+                "This is phishing. The message does not identify a specific " +
+                "package and asks you to provide information through a suspicious domain."
+        }
+
+    ];
+
+
+    /* =====================================
+       VARIABLES
+    ===================================== */
+
+    let currentEmail = 0;
+    let score = 0;
+    let answered = false;
+
+
+    /* =====================================
+       START
+    ===================================== */
+
+    function startSimulation() {
+
+        document.getElementById("home").classList.remove("active");
+
+        document.getElementById("simulation").classList.add("active");
+
+        loadInbox();
+
+    }
+
+
+    /* =====================================
+       CREATE INBOX
+    ===================================== */
+
+    function loadInbox() {
+
+        const list = document.getElementById("emailList");
+
+        list.innerHTML = "";
+
+        emails.forEach((email, index) => {
+
+            const item = document.createElement("div");
+
+            item.className = "email-item";
+
+            item.innerHTML = `
+
+                <div class="email-sender">
+                    <span class="${email.phishing ? "warning-dot" : "safe-dot"}">
+                        ●
+                    </span>
+
+                    ${email.sender.split("<")[0]}
+                </div>
+
+                <div class="email-subject">
+                    ${email.subject}
+                </div>
+
+                <div class="email-preview">
+                    ${email.text.substring(0, 55)}...
+                </div>
+
+            `;
+
+            item.onclick = function() {
+
+                if (index === currentEmail) {
+
+                    openEmail(index);
+
+                }
+
+            };
+
+            list.appendChild(item);
+
+        });
+
+    }
+
+
+    /* =====================================
+       OPEN EMAIL
+    ===================================== */
+
+    function openEmail(index) {
+
+        if (index !== currentEmail) {
+
+            return;
+
+        }
+
+        const email = emails[index];
+
+        answered = false;
+
+        document.getElementById("emailPlaceholder")
+            .style.display = "none";
+
+        document.getElementById("emailContent")
+            .classList.add("active");
+
+        document.getElementById("emailSubject")
+            .textContent = email.subject;
+
+        document.getElementById("emailSender")
+            .textContent = email.sender;
+
+        document.getElementById("emailText")
+            .textContent = email.text;
+
+        document.getElementById("linkText")
+            .textContent = email.linkText;
+
+        document.getElementById("urlBox")
+            .textContent = "Click the link above to inspect it.";
+
+        document.getElementById("feedback")
+            .className = "feedback";
+
+        document.getElementById("feedback")
+            .innerHTML = "";
+
+    }
+
+
+    /* =====================================
+       INSPECT LINK
+    ===================================== */
+
+    function inspectLink() {
+
+        const email = emails[currentEmail];
+
+        document.getElementById("urlBox")
+            .textContent = email.url;
+
+    }
+
+
+    /* =====================================
+       MAKE DECISION
+    ===================================== */
+
+    function makeDecision(userSaysPhishing) {
+
+        if (answered) {
+
+            return;
+
+        }
+
+        answered = true;
+
+        const email = emails[currentEmail];
+
+        const correct =
+            userSaysPhishing === email.phishing;
+
+        const feedback =
+            document.getElementById("feedback");
+
+
+        if (correct) {
+
+            score++;
+
+            feedback.className = "feedback correct";
+
+            feedback.innerHTML =
+                "<strong>✓ Correct!</strong><br><br>" +
+                email.explanation;
+
+        } else {
+
+            feedback.className = "feedback incorrect";
+
+            feedback.innerHTML =
+                "<strong>✗ Incorrect.</strong><br><br>" +
+                email.explanation;
+
+        }
+
+
+        setTimeout(nextScenario, 2500);
+
+    }
+
+
+    /* =====================================
+       NEXT SCENARIO
+    ===================================== */
+
+    function nextScenario() {
+
+        currentEmail++;
+
+        if (currentEmail >= emails.length) {
+
+            showResults();
+
+            return;
+
+        }
+
+        document.getElementById("currentNumber")
+            .textContent = currentEmail + 1;
+
+        document.getElementById("emailContent")
+            .classList.remove("active");
+
+        document.getElementById("emailPlaceholder")
+            .style.display = "flex";
+
+    }
+
+
+    /* =====================================
+       RESULTS
+    ===================================== */
+
+    function showResults() {
+
+        document.getElementById("simulation")
+            .classList.remove("active");
+
+        document.getElementById("results")
+            .classList.add("active");
+
+
+        const percentage =
+            Math.round((score / emails.length) * 100);
+
+
+        document.getElementById("accuracy")
+            .textContent = percentage + "%";
+
+        document.getElementById("correctAnswers")
+            .textContent = score;
+
+
+        let message = "";
+
+        if (percentage >= 80) {
+
+            message =
+                "Great job! You showed strong phishing detection skills.";
+
+        } else if (percentage >= 60) {
+
+            message =
+                "Not bad! You identified some phishing attempts, " +
+                "but there are still warning signs you can improve on.";
+
+        } else {
+
+            message =
+                "You may need more practice. Pay close attention to " +
+                "sender addresses, URLs, urgency, and requests for information.";
+
+        }
+
+
+        document.getElementById("resultMessage")
+            .textContent = message;
+
+    }
+
+</script>
+
+</body>
+</html>
+```
